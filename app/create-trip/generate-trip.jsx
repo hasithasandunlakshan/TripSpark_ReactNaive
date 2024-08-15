@@ -1,12 +1,17 @@
 import { View, Text ,Image} from 'react-native'
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Colors } from '../../constants/Colors'
 import {CreateTripContext} from "../../context/createTripContext"
 import { AI_PROMPT  } from '../../constants/options'
 import { chatSession } from '../../configs/AImodel'
+import { useRouter } from 'expo-router'
+import {auth,db} from "../../configs/fireBaseConfig"
+import { doc, setDoc } from "firebase/firestore"; 
 export default function generatetrip() {
-
+const router=useRouter();
+const user=auth.currentUser;
     const { tripData } = useContext(CreateTripContext);
+    const [loading,setLoading]=useState(false);
     useEffect(()=>{
         if (tripData) {
             GenerateTrip();
@@ -14,6 +19,7 @@ export default function generatetrip() {
       
     }, [tripData]);
     const  GenerateTrip=async()=>{
+      setLoading(true);
         const FINAL_PROMT=AI_PROMPT.replace('{location}',tripData?.location)
         .replace(`{totalDay}`,tripData?.totalNumofData)
         .replace(`{totalNight}`,tripData?.totalNumofData-1)
@@ -24,12 +30,29 @@ console.log(FINAL_PROMT);
 try{
     const result = await chatSession.sendMessage(FINAL_PROMT);
     console.log(result.response.text());
-    console.log("hi")
+    const tripRes=JSON.parse(result.response.text());
+    setLoading(false);
+    const docId=(Date.now()).toString();
+const result_=await setDoc(doc(db,"UserTrips",docId),{
+  userEmail:user.email,
+  tripPlan:tripRes,//AI
+ tripData:JSON.stringify(tripData),//user selection
+
+
+})
+
+    console.log("Added to Database");
+  
 }
 catch(error){
     console.error("muu hadann ba  :", error )
-
+    setLoading(false);
 }
+
+
+
+  router.push('(tabs)/mytrip')
+
 
 
     }
