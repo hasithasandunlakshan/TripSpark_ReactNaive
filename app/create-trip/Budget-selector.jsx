@@ -11,7 +11,7 @@ export default function SelectBudget() {
   useEffect(() => {
     navigation.setOptions({
       headerShown: true,
-      headerTranseparent: true,
+      headerTransparent: true,
       headerTitle: 'Select Budget',
     });
   }, []);

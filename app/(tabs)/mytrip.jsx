@@ -40,7 +40,10 @@ const router=useRouter();
   }, [user]);
 
   return (
-    <ScrollView style={{
+
+
+    
+    <View style={{
       padding: 25,
       paddingTop: 55,
       backgroundColor: Colors.WHITE,
@@ -63,12 +66,14 @@ const router=useRouter();
         </TouchableOpacity>
         
       </View>
-
-      {userTrips.length === 0 ?
+<ScrollView showsVerticalScrollIndicator={false}>
+{userTrips.length === 0 ?
         <MyTripCard /> :
         <UserTripList userTrip={userTrips} />
       }
-    </ScrollView>
+</ScrollView>
+    
+    </View>
   );
 };
 

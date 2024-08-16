@@ -36,10 +36,10 @@ export const SelectTravelList = [
     }
 ];
 export const AI_PROMPT = `Generate a travel plan for Location: {location}, spanning {totalDay} days and {totalNight} nights, tailored for {traveller}. The plan should include:
-0.Main Location Address
-1.Main location Photo url
-2. Flight details:
-   - Flight options with prices and booking URLs.
+1.Main Location Address without district ,country and other  details like postal code 
+
+2. Travel Method:
+   - Bus , Train   or flight details give original root .
 
 3. Hotel options:
    - List of hotels with:

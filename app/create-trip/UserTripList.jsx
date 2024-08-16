@@ -3,11 +3,14 @@ import React from 'react';
 import { TouchableOpacity } from 'react-native';
 import { Colors } from '../../constants/Colors';
 import moment from 'moment';
+import UserTripCard from './UserTripCard';
+import { useRouter } from 'expo-router';
 
 export default function UserTripList({ userTrip }) {
-    const latestTrip = JSON.parse(userTrip[3].tripData);
+    const latestTrip = JSON.parse(userTrip[0].tripData);
 
 console.log(latestTrip);
+const router=useRouter();
     return (
         <ScrollView style={styles.scrollContainer}>
             <View style={styles.container}>
@@ -16,10 +19,13 @@ console.log(latestTrip);
                     style={styles.image}
                 />
                 <View style={styles.tripCard}>
-                    <Text style={styles.locationText}>{userTrip[3].tripPlan?.main_location_address}</Text>
+                <Text style={styles.locationText}>{userTrip[0].tripPlan?.["Main Location Address"]}</Text>
+               
 
-                    <View style={{display:'flex' ,flexDirection}}>
-                    <Text style={styles.locationText}>{latestTrip.travellerType?.title}  {latestTrip.travellerType?.icon}</Text>
+
+
+                    <View style={{display:'flex' ,flexDirection:'row',justifyContent:'space-between'}}>
+                    <Text style={styles.locationText}>{latestTrip.travellerType?.title}{latestTrip.travellerType?.icon}</Text>
                     <Text style={styles.locationText}>{moment(latestTrip.startdate).format('DD MMMM')}</Text>
                     </View>
                   
@@ -27,10 +33,19 @@ console.log(latestTrip);
               
                 <TouchableOpacity
                     style={styles.button}
-                    onPress={() => router.push('auth/sign-in')}
+                    onPress={() => router.push({pathname:'/trip-detail',params:{trip:JSON.stringify(userTrip[0])}})}
                 >
                     <Text style={styles.buttonText}>See your plan</Text>
                 </TouchableOpacity>
+            </View>
+            <View>
+            {userTrip.map((location, index) => (
+           <UserTripCard userTrip={location}/>
+        ))}
+
+              
+
+             
             </View>
         </ScrollView>
     );
@@ -39,8 +54,9 @@ console.log(latestTrip);
 const styles = StyleSheet.create({
   scrollContainer: {
     flex: 1,
-    backgroundColor: '#f5f5f5',
-    height:'auto' // Light grey background color
+    backgroundColor: '#fff',
+    height:'auto',
+    marginBottom:20 // Light grey background color
   },
   container: {
     padding: 20,
@@ -71,7 +87,7 @@ const styles = StyleSheet.create({
     padding: 15,
     backgroundColor: Colors.PRIMARY,
     borderRadius: 99,
-    marginTop: '15%',
+    marginTop: '5%',
   },
   buttonText: {
     color: Colors.WHITE,
