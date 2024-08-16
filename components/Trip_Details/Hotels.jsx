@@ -5,7 +5,7 @@ export default function Hotels({ hotels }) {
   return (
     <View style={styles.container}>
       <Image 
-        source={{ uri: hotels?.ImageURL }}
+        source={ require('../../assets/images/Hotel.jpg')}
         style={styles.image}
         resizeMode="cover"
       />
@@ -19,7 +19,7 @@ export default function Hotels({ hotels }) {
 }
 const styles = StyleSheet.create({
     container: {
-      padding: 15,
+      padding: 5,
       borderWidth: 1,
       borderColor: '#ccc',
       borderRadius: 10,
@@ -27,10 +27,10 @@ const styles = StyleSheet.create({
       backgroundColor: '#fff',
     },
     image: {
-      width: '20%',
-      height: 20,
+      width: '50%',
+      height: 100,
       borderRadius: 10,
-      marginBottom: 10,
+      marginBottom: 1,
     },
     name: {
       fontSize: 18,
