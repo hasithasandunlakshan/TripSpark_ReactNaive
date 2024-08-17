@@ -57,8 +57,8 @@ export default function SignIn() {
       <View>
         <Text style={styles.subheading}>You've been missed!</Text>
       </View>
-
-      <View style={styles.inputContainer}>
+<View   style={{marginTop:height * 0.03,}}>
+<View style={styles.inputContainer}>
         <Text style={styles.label}>Email</Text>
         <TextInput
           style={styles.input}
@@ -76,6 +76,8 @@ export default function SignIn() {
           placeholder='Enter Password'
         />
       </View>
+</View>
+    
 
       <TouchableOpacity
         style={styles.signInButton}
@@ -100,6 +102,7 @@ const styles = StyleSheet.create({
     paddingTop: height * 0.05, // 5% of screen height
     backgroundColor: Colors.WHITE,
     height: '100%',
+    
   },
   backButton: {
     position: 'absolute',
@@ -119,6 +122,7 @@ const styles = StyleSheet.create({
     color: "gray",
     textAlign: "justify",
     fontFamily: 'poppinsmedium',
+    
     // Poppins Regular
   },
   inputContainer: {
@@ -139,7 +143,7 @@ const styles = StyleSheet.create({
     padding: width * 0.04, // 4% of screen width
     backgroundColor: Colors.PRIMARY,
     borderRadius: width * 0.05, // 5% of screen width
-    marginTop: height * 0.05, // 5% of screen height
+    marginTop: height * 0.04, // 5% of screen height
   },
   signInButtonText: {
     color: Colors.WHITE,

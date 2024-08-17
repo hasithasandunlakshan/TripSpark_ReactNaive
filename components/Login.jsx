@@ -45,7 +45,11 @@ const styles = StyleSheet.create({
     height: '100%',
     borderTopLeftRadius:30,
     borderTopRightRadius:30,
-    padding:20
+    padding:20,
+    borderWidth:3,
+    shadowOffset:20,
+    shadowColor:'black',
+    shadowOpacity:1
 
   },
   title: {
