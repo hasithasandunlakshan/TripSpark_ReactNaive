@@ -69,11 +69,11 @@ catch(error){
     }>
       <Text 
       
-      style={{fontSize:30 ,fontWeight:'bold'}}>Please Wait...</Text>
+      style={{fontSize:30 ,fontFamily:'poppins'}}>Please Wait...</Text>
 
 <Text 
       
-      style={{fontSize:20 ,fontWeight:'500',textAlign:'center',marginTop:10}}>We are working to generate your dream trip.</Text>
+      style={{fontSize:20 ,fontFamily:'poppinsmedium',textAlign:'center',marginTop:10}}>We are working to generate your dream trip.</Text>
       <Image source={require('../../assets/images/earth.gif')} style={{
 
         width:'100%',
@@ -83,7 +83,7 @@ catch(error){
 
 <Text 
       
-      style={{fontSize:30 ,fontWeight:'bold'}}>Do not go back</Text>
+      style={{fontSize:15 ,fontFamily:'poppinsmedium',marginTop:10}}>Do not go back</Text>
     </View>
   )
 }

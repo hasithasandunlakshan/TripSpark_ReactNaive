@@ -16,14 +16,17 @@ const router=useRouter();
             <View style={styles.container}>
                
                 <View style={styles.tripCard}>
-                  
+                <Image
+                    source={require('../../assets/images/login.jpg')}
+                    style={styles.image}
+                />
                 <Text style={styles.locationText}>{userTrip[0].tripPlan?.["Main Location Address"]}</Text>
                
 
 
 
                     <View style={{display:'flex' ,flexDirection:'row',justifyContent:'space-between'}}>
-                    <Text style={styles.normalText}>{latestTrip.travellerType?.title}{latestTrip.travellerType?.icon}</Text>
+                    <Text style={styles.normalText}> {latestTrip.travellerType?.title} Trip {latestTrip.travellerType?.icon}</Text>
                     <Text style={styles.normalText}>{moment(latestTrip.startdate).format('DD MMMM')}</Text>
                     </View>
                   
@@ -36,16 +39,19 @@ const router=useRouter();
                     <Text style={styles.buttonText}>See your plan</Text>
                 </TouchableOpacity>
             </View>
-            <View>
-            {userTrip.map((location, index) => (
-              <TouchableOpacity  onPress={() => router.push({pathname:'/trip-detail',params:{trip:JSON.stringify(location)}})} >
-<UserTripCard userTrip={location} key={index}  />
 
-              </TouchableOpacity>
- 
-             
-          
-        ))}
+
+            <Text style={styles.locationText}>Upcoming Trips</Text>
+
+            <View>
+            {userTrip.slice(1).map((location, index) => (
+  <TouchableOpacity 
+    key={index} 
+    onPress={() => router.push({ pathname: '/trip-detail', params: { trip: JSON.stringify(location) } })}
+  >
+    <UserTripCard userTrip={location} />
+  </TouchableOpacity>
+))}
 
               
 
@@ -60,10 +66,12 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
     height:'auto',
-    marginBottom:20 // Light grey background color
+    marginBottom:20,
+    fontFamily:'poppins',// Light grey background color
   },
   container: {
     padding: 20,
+    fontFamily:'poppinsmedium',
   },
   image: {
     width: '100%',
@@ -72,25 +80,27 @@ const styles = StyleSheet.create({
     objectFit: 'cover',
   },
   tripCard: {
+    width: '100%',
     backgroundColor: '#ffffff', // White background for the card
     borderRadius: 10,
     padding: 15,
     marginVertical: 10,
     shadowColor: '#000', // Shadow color for iOS
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.2,
-    shadowRadius: 5,
-    elevation: 3, // Shadow for Android
+   borderWidth:2
+   // Shadow for Android
   },
   locationText: {
     fontSize: 18,
-    fontWeight: 'bold',
-    color: '#333', // Dark grey text color
+   
+    color: '#333', 
+    marginVertical:5 ,
+    fontFamily:'poppins',// Dark grey text color
   },
   normalText: {
     fontSize: 10,
     fontWeight: '500',
-    color: '#333', // Dark grey text color
+    color: '#333',
+    fontFamily:'poppinsmedium', // Dark grey text color
   },
   button: {
     padding: 15,
@@ -102,5 +112,6 @@ const styles = StyleSheet.create({
     color: Colors.WHITE,
     textAlign: "center",
     fontSize: 12,
+    fontFamily:'poppinsmedium',
   },
 });

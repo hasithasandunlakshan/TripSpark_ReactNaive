@@ -11,7 +11,10 @@ function Tablayout() {
         options={{
             tabBarLabel:"My Trip",
             tabBarActiveTintColor:Colors.PRIMARY,
-            
+            tabBarLabelStyle: {
+              fontFamily: 'poppins', // Use the font family name you registered with useFonts
+              fontSize: 10, // You can adjust the size if needed
+            },
             tabBarIcon:({color})=><MaterialIcons name="location-on" size={24} color={color} />,
 
 
@@ -20,12 +23,15 @@ function Tablayout() {
         
         
         />
-        <Tabs.Screen name='discover'
+        <Tabs.Screen name='discover' 
         
         options={{
             tabBarLabel:"Discover",
             tabBarActiveTintColor:Colors.PRIMARY,
-            
+            tabBarLabelStyle: {
+              fontFamily: 'poppins', // Use the font family name you registered with useFonts
+              fontSize: 10, // You can adjust the size if needed
+            },
             tabBarIcon:({color})=><FontAwesome5 name="globe-americas" size={24} color={color} />,
 
 
@@ -35,7 +41,10 @@ function Tablayout() {
         options={{
             tabBarLabel:"Profile",
             tabBarActiveTintColor:Colors.PRIMARY,
-            
+            tabBarLabelStyle: {
+              fontFamily: 'poppins', // Use the font family name you registered with useFonts
+              fontSize: 10, // You can adjust the size if needed
+            },
             tabBarIcon:({color})=><FontAwesome name="user" size={24} color={color} />,
 
 

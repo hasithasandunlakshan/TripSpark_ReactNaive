@@ -37,28 +37,30 @@ const styles = StyleSheet.create({
       marginBottom: 1,
     },
     name: {
-      fontSize: 18,
-      fontWeight: 'bold',
+      fontSize: 15,
+      fontFamily: 'poppinsmedium',
       marginBottom: 5,
     },
  
     address: {
-      fontSize: 12,
+      fontSize: 10,
       color: '#444',
-    fontWeight:'400'
+ 
+    fontFamily: 'poppinsmedium',
    
     },
     price: {
 
-      fontSize: 12,
-      color: '#333',
-      fontWeight:'400'
-  
+      fontSize: 10,
+      color: '#444',
+ 
+    fontFamily: 'poppinsmedium',
     },
     rating: {
-        fontWeight: 'bold',
-      fontSize: 14,
+      fontSize: 10,
       color: '#444',
+ 
+    fontFamily: 'poppins',
     },
     scrollContainer: {
       padding: 20,

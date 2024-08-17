@@ -21,8 +21,8 @@ export default function UserTripDetails() {
 
     setTripDetails(JSON.parse(trip));
     const tripdata=JSON.parse(JSON.parse(trip).tripData);
-    console.log("hiiiiiiiiii");
- console.log(tripData);
+//     console.log("hiiiiiiiiii");
+//  console.log(tripData);
     setTripData(tripdata);
   }, []);
 
@@ -50,30 +50,31 @@ export default function UserTripDetails() {
       >
         <Text
           style={{
-            fontWeight: 'bold',
+            fontFamily: 'poppins',
             fontSize: 25,
           }}
         >
           {tripDetails.tripPlan?.["Main Location Address"]}
         </Text>
   
-        <View style={{display:'flex', flexDirection:'row',justifyContent:'space-between', fontWeight: 'bold',
+        <View style={{display:'flex', flexDirection:'row',justifyContent:'space-between', 
             fontSize: 20,}}>
        
-       <Text style={{ fontWeight: '500',
-            fontSize: 15,
-            }}>{moment(tripData?.startdate).format('DD MMM')} </Text>
-       <Text style={{ fontWeight: '500',
-            fontSize: 15,
+       <Text style={{ 
+            fontSize: 15,fontFamily: 'poppinsmedium',
+            }}> {moment(tripData?.startdate).format('DD MMM')} </Text>
+       <Text style={{ 
+            fontSize: 15,fontFamily: 'poppinsmedium',
           }}> {moment(tripData?.enddate).format('DD MMM')}</Text>
      </View>
         
         <Text
           style={{
-            fontWeight: 'bold',
+           
             fontSize: 20,
             marginTop: 15,
             marginBottom: 15,
+            fontFamily:'poppins',
           }}
         >
           🏨 Hotel Recommendations
@@ -98,7 +99,7 @@ export default function UserTripDetails() {
         <View>
         <Text
           style={{
-            fontWeight: 'bold',
+            fontFamily: 'poppins',
             fontSize: 20,
             marginTop: 15,
             marginBottom: 15,
@@ -110,7 +111,7 @@ export default function UserTripDetails() {
 
         {tripDetails.tripPlan?.["Places to visit nearby"].map((place, index) => (
             <TouchableOpacity key={index}>
-              <Places place={place}/>
+              <Places place={place} key={index}/>
             </TouchableOpacity>
           ))}
 

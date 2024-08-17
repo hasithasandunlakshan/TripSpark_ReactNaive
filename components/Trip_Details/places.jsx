@@ -45,26 +45,31 @@ const styles = StyleSheet.create({
   },
   day: {
     fontSize: 16,
-    fontWeight: 'bold',
+ 
+
+  fontFamily: 'poppins',
     marginBottom: 5,
   },
   placeName: {
     fontSize: 20,
-    fontWeight: 'bold',
+    fontFamily: 'poppins',
     marginBottom: 10,
   },
   description: {
     fontSize: 14,
     color: '#555',
     marginBottom: 10,
+    fontFamily: 'poppinsmedium',
   },
   travelTime: {
     fontSize: 12,
     color: '#777',
     marginBottom: 5,
+    fontFamily: 'poppinsmedium',
   },
   ticketPricing: {
     fontSize: 12,
     color: '#777',
+    fontFamily: 'poppinsmedium',
   },
 });

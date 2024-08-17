@@ -56,6 +56,7 @@ const router=useRouter();
                     paddingLeft: 10,
                     marginBottom: 20,
                  borderRadius:25,
+                 fontFamily: 'poppinsmedium',
                  fontSize:18
                 }}
             />
@@ -76,7 +77,7 @@ const router=useRouter();
                       
                         }}
                     >
-                        <Text style={{ padding: 10 }}>{item.display_name}</Text>
+                        <Text style={{ padding: 10,fontFamily: 'poppinsregular', }}>{item.display_name}</Text>
                     </TouchableOpacity>
                 )}
             />

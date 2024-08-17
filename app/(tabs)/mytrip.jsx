@@ -61,7 +61,7 @@ const router=useRouter();
       }}>
         <Text style={{
           fontSize: 35,
-          fontWeight: 'bold'
+          fontFamily:'poppins', 
         }}>My Trips</Text>
         <TouchableOpacity  onPress={()=>  router.push('/create-trip/search-place')}>
         <Ionicons name="add-circle" size={35} color="black" />

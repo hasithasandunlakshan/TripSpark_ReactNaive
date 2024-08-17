@@ -1,180 +1,163 @@
-import { View, Text, TextInput, StyleSheet, TouchableOpacity, ToastAndroid } from 'react-native';
-import React, { useEffect,useState } from 'react';
+import { View, Text, TextInput, StyleSheet, TouchableOpacity, ToastAndroid, Dimensions } from 'react-native';
+import React, { useEffect, useState } from 'react';
 import { useNavigation, useRouter } from 'expo-router';
 import { Colors } from '../../../constants/Colors';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { signInWithEmailAndPassword } from 'firebase/auth';
-import { auth } from '../../../configs/fireBaseConfig'; 
+import { auth } from '../../../configs/fireBaseConfig';
+
+// Get screen dimensions
+const { width, height } = Dimensions.get('window');
+
 export default function SignIn() {
-    // Initializing navigation and router hooks
-    const navigation = useNavigation();
-    const router = useRouter();
-    const [email,setEmail]=useState();
-    const [password,setPassword]=useState();
-    useEffect(() => {
-        // Hide the header using navigation options
-        // Note: In expo-router, this is often handled in _layout.js
-        navigation.setOptions({
-            headerShown: false
-        });
-    }, []); // Empty dependency array means this effect runs only once when the component mounts
-const onSignIn =()=>{
-    if(!email&&!password){
-        ToastAndroid.show("please enter valid Email and password",ToastAndroid.BOTTOM)
+  const navigation = useNavigation();
+  const router = useRouter();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  useEffect(() => {
+    navigation.setOptions({
+      headerShown: false
+    });
+  }, []);
+
+  const onSignIn = () => {
+    if (!email || !password) {
+      ToastAndroid.show("Please enter valid Email and password", ToastAndroid.BOTTOM);
+      return;
     }
     signInWithEmailAndPassword(auth, email, password)
-  .then((userCredential) => {
-    // Signed in 
-    const user = userCredential.user;
-    router.replace('/mytrip')
-    console.log("log una");
-    
-  
+      .then((userCredential) => {
+        const user = userCredential.user;
+        router.replace('/mytrip');
+        console.log("User signed in");
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log(errorMessage, errorCode);
+        if (errorCode === 'auth/invalid-email') {
+          ToastAndroid.show("Invalid Email", ToastAndroid.BOTTOM);
+        }
+      });
+  }
 
-    // ...
-  })
-  .catch((error) => {
-    const errorCode = error.code;
-    const errorMessage = error.message;
-    console.log(errorMessage,errorCode)
-    if(errorCode=='auth/invalid-email'){
-        ToastAndroid.show("Invalid",ToastAndroid.BOTTOM);
-    }
-  });
-}
-    return (
-        <View style={{ padding: 25,
-        paddingTop:40,
-        backgroundColor: Colors.WHITE, height: '100%' }}>
-            {/* Main heading for the sign-in screen */}
-            <TouchableOpacity onPress={()=>router.back()} style={{ position: 'absolute', top: 50, left: 10 }}>
-    <Ionicons name="arrow-back" size={24} color="black" />
-</TouchableOpacity >
+  return (
+    <View style={styles.container}>
+      <TouchableOpacity onPress={() => router.back()} style={styles.backButton}>
+        <Ionicons name="arrow-back" size={24} color="black" />
+      </TouchableOpacity>
 
-            <Text
-                style={{
-                    fontStyle: "normal",
-                    fontWeight: "bold",
-                    textAlign: "center",
-                    marginTop: 60,
-                    fontSize: 30
-                }}>
-                 
-                Let's Sign You in
-            </Text>
-         
-            <View>
-          
-                {/* Subheading with a welcome message */}
-                <Text
-                    style={{
-                        marginTop: 20,
-                        color: "gray",
-                        textAlign: "justify",
-                        fontSize: 30
-                    }}>
-                    Welcome Back
-                </Text>
-            </View>
+      <Text style={styles.heading}>Let's Sign You in</Text>
 
-            <View>
-                {/* Another part of the welcome message */}
-                <Text
-                    style={{
-                        color: "gray",
-                        textAlign: "justify",
-                        fontSize: 30
-                    }}>
-                    You've been missed!
-                </Text>
-            </View>
+      <View>
+        <Text style={styles.subheading}>Welcome Back</Text>
+      </View>
 
-            {/* Email input field */}
-            <View style={{ marginVertical: 25 }}>
-                <Text
-                    style={{
-                        fontSize: 10
-                    }}>
-                    Email
-                </Text>
-                <TextInput
-                    style={styles.input}
-                    onChangeText={(value)=>setEmail(value)}
-                  // Hides text input for privacy
-                    placeholder='Enter email' // Placeholder text inside the input field
-                />
-            </View>
+      <View>
+        <Text style={styles.subheading}>You've been missed!</Text>
+      </View>
 
-            {/* Password input field */}
-            <View>
-                <Text
-                    style={{
-                        fontStyle: "normal",
-                        fontSize: 10
-                    }}>
-                    Password
-                </Text>
-                <TextInput
-                    type="Password" // Specifies the type of input
-                    style={styles.input}
-                    onChangeText={(value)=>setPassword(value)}
-                    secureTextEntry={true} // Hides text input for password security
-                    placeholder='Enter Password' // Placeholder text inside the input field
-                />
-            </View>
+      <View style={styles.inputContainer}>
+        <Text style={styles.label}>Email</Text>
+        <TextInput
+          style={styles.input}
+          onChangeText={setEmail}
+          placeholder='Enter email'
+        />
+      </View>
 
-            {/* Sign-in button */}
-            <TouchableOpacity
-                style={styles.button}
-                onPress={onSignIn} // Navigate to the sign-in screen
-            >
-                <Text style={{
-                    color: Colors.WHITE,
-                    textAlign: "center",
-                    fontSize: 12
-                }}>
-                    Sign in
-                </Text>
-            </TouchableOpacity>
+      <View>
+        <Text style={styles.label}>Password</Text>
+        <TextInput
+          style={styles.input}
+          onChangeText={setPassword}
+          secureTextEntry={true}
+          placeholder='Enter Password'
+        />
+      </View>
 
-            {/* Create account button */}
-            <TouchableOpacity
-                style={styles.button2}
-                onPress={() => router.replace('auth/sign-up')} // Navigate to the sign-up screen
-            >
-                <Text style={{
-                    color: Colors.PRIMARY,
-                    textAlign: "center",
-                    fontSize: 12
-                }}>
-                    Create Account
-                </Text>
-            </TouchableOpacity>
-        </View>
-    );
+      <TouchableOpacity
+        style={styles.signInButton}
+        onPress={onSignIn}
+      >
+        <Text style={styles.signInButtonText}>Sign in</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity
+        style={styles.createAccountButton}
+        onPress={() => router.replace('auth/sign-up')}
+      >
+        <Text style={styles.createAccountButtonText}>Create Account</Text>
+      </TouchableOpacity>
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({
-    // Style for text inputs
-    input: {
-        padding: 10,
-        borderRadius: 20, // Rounded corners for the input field
-        borderWidth: 1, // Border width of the input field
-        borderColor: "gray" // Border color of the input field
-    },
-    // Style for the sign-in button
-    button: {
-        padding: 15,
-        backgroundColor: Colors.PRIMARY, // Background color of the button
-        borderRadius: 10, // Rounded corners for the button
-        marginTop: '15%' // Top margin for spacing
-    },
-    // Style for the create account button
-    button2: {
-        padding: 15,
-        borderColor: "black", // Border color for the button
-        borderWidth: 1, // Border width of the button
-        borderRadius: 10, // Rounded corners for the button
-        marginTop: '5%' // Top margin for spacing
-    }
+  container: {
+    padding: width * 0.05, // 5% of screen width
+    paddingTop: height * 0.05, // 5% of screen height
+    backgroundColor: Colors.WHITE,
+    height: '100%',
+  },
+  backButton: {
+    position: 'absolute',
+    top: height * 0.05, // 5% from top
+    left: width * 0.03, // 3% from left
+  },
+  heading: {
+    fontSize: width * 0.07, // 7% of screen width
+   
+    textAlign: "center",
+    marginTop: height * 0.08, // 7% from top
+    fontFamily: 'poppins',
+    marginBottom:height * 0.02, // Poppins Medium
+  },
+  subheading: {
+    fontSize: width * 0.05, // 5% of screen width
+    color: "gray",
+    textAlign: "justify",
+    fontFamily: 'poppinsmedium',
+    // Poppins Regular
+  },
+  inputContainer: {
+    marginVertical: height * 0.01, // 3% of screen height
+  },
+  label: {
+    fontSize: width * 0.03, // 3% of screen width
+    fontFamily: 'poppinsregular', // Poppins Regular
+  },
+  input: {
+    padding: width * 0.03, // 3% of screen width
+    borderRadius: width * 0.05, // 5% of screen width
+    borderWidth: 1,
+    borderColor: "gray",
+    fontFamily: 'poppinsregular', // Poppins Regular
+  },
+  signInButton: {
+    padding: width * 0.04, // 4% of screen width
+    backgroundColor: Colors.PRIMARY,
+    borderRadius: width * 0.05, // 5% of screen width
+    marginTop: height * 0.05, // 5% of screen height
+  },
+  signInButtonText: {
+    color: Colors.WHITE,
+    textAlign: "center",
+    fontSize: width * 0.03, // 3% of screen width
+    fontFamily: 'poppinsmedium', // Poppins Medium
+  },
+  createAccountButton: {
+    padding: width * 0.04, // 4% of screen width
+    borderColor: "black",
+    borderWidth: 1,
+    borderRadius: width * 0.05, // 5% of screen width
+    marginTop: height * 0.03, // 3% of screen height
+  },
+  createAccountButtonText: {
+    color: Colors.PRIMARY,
+    textAlign: "center",
+    fontSize: width * 0.03, // 3% of screen width
+    fontFamily: 'poppinsmedium', // Poppins Medium
+  },
 });

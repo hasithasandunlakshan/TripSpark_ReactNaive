@@ -6,9 +6,9 @@ import { useRouter } from 'expo-router';
 export default function Login() {
     const router =useRouter();
   return (
-    <View>
+    <View >
       <Image 
-        source={require('@/assets/images/login.jpg')}
+        source={require('@/assets/images/Home.jpg')}
         style={{
           width: "100%",
           height: "40%",
@@ -27,7 +27,8 @@ export default function Login() {
 
 
         <Text style={{color:Colors.WHITE,textAlign:"center",
-            fontSize:12
+            fontSize:15,fontFamily:'poppinsregular',
+
           
         }}>Get Started</Text>
         </TouchableOpacity >
@@ -48,21 +49,25 @@ const styles = StyleSheet.create({
 
   },
   title: {
-    fontSize: 25,
+    fontSize: 40,
     textAlign:'center',
     textDecorationStyle:'solid',
-    fontWeight:'bold'
+    
+    fontFamily:'popitalic',
   },
   title2: {
-     marginTop:'5%',
+     margin:'2%',
     fontSize: 20,
     textAlign:'center', 
+  fontFamily:'poppinsmedium',
+  fontWeight:'600'
+  
   },
   button:{
-    padding:15,
+    padding:10,
     backgroundColor:Colors.PRIMARY,
     borderRadius:99,
-    marginTop:'15%'
+    marginTop:'5%'
 
   }
 });

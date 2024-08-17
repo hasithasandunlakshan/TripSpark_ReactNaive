@@ -97,7 +97,7 @@ export default function Profile() {
       </View>
 
       <TouchableOpacity style={styles.button} onPress={() => router.push('/userprofile/updateProfile')}>
-        <Text style={styles.buttonText}>Update Profile</Text>
+        <Text style={styles.buttonText}>Edit Profile</Text>
       </TouchableOpacity>
 
       <TouchableOpacity style={[styles.button, styles.logoutButton]} onPress={signOutUser}>
@@ -127,11 +127,12 @@ const styles = StyleSheet.create({
     objectFit: 'contain',
   },
   title: {
-    fontSize: 28,
-    fontWeight: 'bold',
+    fontSize: 15,
+   
     color: '#333',
     marginBottom: 10,
-    marginHorizontal:10
+    marginHorizontal:10,
+  fontFamily:'poppins'
   },
   formField: {
     width: '100%',
@@ -141,12 +142,14 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: '#666',
     marginBottom: 5,
+    fontFamily:'poppinsmedium'
   },
   input: {
     backgroundColor: '#f0f0f0',
     padding: 10,
     borderRadius: 5,
     fontSize: 16,
+    fontFamily:'poppinsregular'
   },
   tripInfo: {
     flexDirection: 'row',
@@ -156,20 +159,25 @@ const styles = StyleSheet.create({
   },
   tripCard: {
     alignItems: 'center',
+    borderWidth:2,
+    padding:10,
+    borderRadius:10
   },
   tripNumber: {
     fontSize: 24,
     fontWeight: 'bold',
     color: '#333',
+    
   },
   tripLabel: {
     fontSize: 16,
     color: '#666',
+    fontFamily:'poppinsmedium'
   },
   button: {
     backgroundColor: 'black',
-    paddingVertical: 12,
-    paddingHorizontal: 25,
+    paddingVertical: 8,
+    paddingHorizontal: 15,
     borderRadius: 10,
     marginVertical: 7,
     width: '70%',
@@ -184,6 +192,7 @@ const styles = StyleSheet.create({
   buttonText: {
     color: '#fff',
     fontSize: 16,
+    fontFamily:'poppinsmedium'
   },
   deleteButtonText: {
     fontWeight: 'bold',

@@ -3,156 +3,153 @@ import React, { useEffect, useState } from 'react';
 import { useNavigation, useRouter } from 'expo-router';
 import { Colors } from '../../../constants/Colors';
 import Ionicons from '@expo/vector-icons/Ionicons';
-import {createUserWithEmailAndPassword,updateProfile} from 'firebase/auth'
-import { auth } from '../../../configs/fireBaseConfig'; 
+import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
+import { auth } from '../../../configs/fireBaseConfig';
+
 export default function SignIn() {
-    // Initializing navigation and router hooks
-    const navigation = useNavigation();
-    const router = useRouter();
-const [email,setEmail]=useState();
-const [password,setPassword]=useState();
-const [fullname,setFullname]=useState();
-    useEffect(() => {
-        // Hide the header using navigation options
-        // Note: In expo-router, this is often handled in _layout.js
-        navigation.setOptions({
-            headerShown: false
-        });
-    }, []); // Empty dependency array means this effect runs only once when the component mounts
+  const navigation = useNavigation();
+  const router = useRouter();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [fullname, setFullname] = useState('');
 
-
-    const onCreateAccount=()=>{
-        if(!email&& !password&&!fullname){
-            ToastAndroid.show("please enter all details",ToastAndroid.BOTTOM)
-            return;
-        }
-        createUserWithEmailAndPassword(auth, email, password)
-  .then((userCredential) => {
-    // Signed up 
-    const user = userCredential.user;
-    console.log(user);
-    updateProfile(user, {
-        displayName: fullname
-    }).then(() => {
-        console.log("User profile updated with display name:", fullname);
-        // You can navigate to another screen or perform additional actions here
-    }).catch((error) => {
-        console.error("Error updating profile:", error.message);
+  useEffect(() => {
+    navigation.setOptions({
+      headerShown: false
     });
-    // ...
-  })
-  .catch((error) => {
-    const errorCode = error.code;
-    const errorMessage = error.message;
-    console.log(errorMessage);
-    // ..
-  });
+  }, []);
 
+  const onCreateAccount = () => {
+    if (!email || !password || !fullname) {
+      ToastAndroid.show("Please enter all details", ToastAndroid.BOTTOM);
+      return;
     }
+    createUserWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        const user = userCredential.user;
+        console.log(user);
+        updateProfile(user, {
+          displayName: fullname
+        }).then(() => {
+          console.log("User profile updated with display name:", fullname);
+        }).catch((error) => {
+          console.error("Error updating profile:", error.message);
+        });
+      })
+      .catch((error) => {
+        const errorMessage = error.message;
+        console.log(errorMessage);
+      });
+  }
 
-    return (
-        <View style={{ padding: 25, backgroundColor: Colors.WHITE, height: '100%' }}>
-            {/* Main heading for the create account screen */}
-            <TouchableOpacity onPress={()=>router.back()} style={{ position: 'absolute', top: 50, left: 10 }}>
-    <Ionicons name="arrow-back" size={24} color="black" />
-</TouchableOpacity >
-            <Text style={{
-                color: Colors.PRIMARY, // Text color for the heading
-                textAlign: "center", // Center-align the text
-                marginTop: 80, // Top margin for spacing
-                fontSize: 30, // Font size for the heading
-                fontWeight: "bold" // Bold text
-            }}>
-                Create your Account
-            </Text>
-            
+  return (
+    <View style={styles.container}>
+      <TouchableOpacity onPress={() => router.back()} style={styles.backButton}>
+        <Ionicons name="arrow-back" size={24} color="black" />
+      </TouchableOpacity>
+      <Text style={styles.heading}>Create your Account</Text>
 
-            {/* Full Name input field */}
-            <View style={{ marginTop: 25, marginBottom: 15 }}>
-                <Text style={{ fontSize: 10 }}>Full Name</Text>
-                <TextInput
-                    style={styles.input}
-                  // Hides text input for privacy (typically used for password fields)
-                    placeholder='Enter FullName'
-                    onChangeText={(value)=>setFullname(value)} // Placeholder text inside the input field
-                />
-            </View>
+      <View style={styles.inputContainer}>
+        <Text style={styles.label}>Full Name</Text>
+        <TextInput
+          style={styles.input}
+          placeholder='Enter Full Name'
+          onChangeText={setFullname}
+        />
+      </View>
 
-            {/* Email input field */}
-            <View style={{ marginBottom: 15 }}>
-                <Text style={{ fontSize: 10 }}>Email</Text>
-                <TextInput
-                    style={styles.input}
-                   // Hides text input for privacy (again, typically used for password fields)
-                   onChangeText={(value)=>setEmail(value)}  
-                   placeholder='Enter email' // Placeholder text inside the input field
-                />
-            </View>
+      <View style={styles.inputContainer}>
+        <Text style={styles.label}>Email</Text>
+        <TextInput
+          style={styles.input}
+          placeholder='Enter email'
+          onChangeText={setEmail}
+        />
+      </View>
 
-            {/* Password input field */}
-            <View style={{ marginBottom: 15 }}>
-                <Text style={{ fontSize: 10 }}>Password</Text>
-                <TextInput
-                    type="Password" // Specifies the type of input
-                    style={styles.input}
-                    onChangeText={(value)=>setPassword(value)} 
-                    secureTextEntry={true} // Hides text input for password security
-                    placeholder='Enter Password' // Placeholder text inside the input field
-                />
-            </View>
+      <View style={styles.inputContainer}>
+        <Text style={styles.label}>Password</Text>
+        <TextInput
+          style={styles.input}
+          placeholder='Enter Password'
+          secureTextEntry={true}
+          onChangeText={setPassword}
+        />
+      </View>
 
-            {/* Create Account button */}
-            <TouchableOpacity
-                style={styles.button2}
-                onPress={onCreateAccount} // Navigate to the sign-up screen
-            >
-                <Text style={{
-                    color: Colors.PRIMARY, // Text color for the button
-                    textAlign: "center", // Center-align the text
-                    fontSize: 12 // Font size for the button text
-                }}>
-                    Create Account
-                </Text>
-            </TouchableOpacity>
+      <TouchableOpacity
+        style={styles.createAccountButton}
+        onPress={onCreateAccount}
+      >
+        <Text style={styles.createAccountButtonText}>Create Account</Text>
+      </TouchableOpacity>
 
-            {/* Sign-in button */}
-            <TouchableOpacity
-                style={styles.button}
-                onPress={() => router.push('auth/sign-in')} // Navigate to the sign-in screen
-            >
-                <Text style={{
-                    color: Colors.WHITE, // Text color for the button
-                    textAlign: "center", // Center-align the text
-                    fontSize: 12 // Font size for the button text
-                }}>
-                    Sign in
-                </Text>
-            </TouchableOpacity>
-        </View>
-    );
+      <TouchableOpacity
+        style={styles.signInButton}
+        onPress={() => router.push('auth/sign-in')}
+      >
+        <Text style={styles.signInButtonText}>Sign in</Text>
+      </TouchableOpacity>
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({
-    // Style for text inputs
-    input: {
-        padding: 10, // Padding inside the input field
-        borderRadius: 20, // Rounded corners for the input field
-        borderWidth: 1, // Border width of the input field
-        borderColor: "gray" // Border color of the input field
-    },
-    // Style for the sign-in button
-    button: {
-        padding: 15, // Padding inside the button
-        backgroundColor: Colors.PRIMARY, // Background color of the button
-        borderRadius: 10, // Rounded corners for the button
-        marginTop: '5%' // Top margin for spacing
-    },
-    // Style for the create account button
-    button2: {
-        padding: 15, // Padding inside the button
-        borderColor: "black", // Border color for the button
-        borderWidth: 1, // Border width of the button
-        borderRadius: 10, // Rounded corners for the button
-        marginTop: '15%' // Top margin for spacing
-    }
+  container: {
+    padding: 25,
+    backgroundColor: Colors.WHITE,
+    height: '100%',
+  },
+  backButton: {
+    position: 'absolute',
+    top: 50,
+    left: 10,
+  },
+  heading: {
+    color: Colors.PRIMARY,
+    textAlign: "center",
+    marginTop: 80,
+    fontSize: 30,
+    fontFamily: 'poppins', // Poppins Medium
+  },
+  inputContainer: {
+    marginTop: 5,
+    marginBottom: 5,
+  },
+  label: {
+    fontSize: 15,
+    fontFamily: 'poppinsmedium', // Poppins Regular
+  },
+  input: {
+    padding: 10,
+    borderRadius: 20,
+    borderWidth: 1,
+    borderColor: "gray",
+    fontFamily: 'poppinsmedium', // Poppins Regular
+  },
+  createAccountButton: {
+    padding: 15,
+    borderColor: "black",
+    borderWidth: 1,
+    borderRadius: 10,
+    marginTop: '15%',
+  },
+  createAccountButtonText: {
+    color: Colors.PRIMARY,
+    textAlign: "center",
+    fontSize: 12,
+    fontFamily: 'poppinsmedium', // Poppins Medium
+  },
+  signInButton: {
+    padding: 15,
+    backgroundColor: Colors.PRIMARY,
+    borderRadius: 10,
+    marginTop: '5%',
+  },
+  signInButtonText: {
+    color: Colors.WHITE,
+    textAlign: "center",
+    fontSize: 12,
+    fontFamily: 'poppinsmedium', // Poppins Medium
+  },
 });

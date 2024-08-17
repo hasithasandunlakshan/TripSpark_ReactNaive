@@ -13,7 +13,7 @@ export default function SelectBudget() {
   useEffect(() => {
     navigation.setOptions({
       headerShown: true,
-      headerTitle: '🛩️ Select Budget',
+      headerTitle: 'Select Budget',
     });
   }, []);
 
@@ -29,8 +29,13 @@ export default function SelectBudget() {
   return (
     <View style={{ margin: 20 }}>
       <View>
-        <Text style={{ fontSize: 32, fontWeight: 'bold', color: Colors.PRIMARY, marginBottom: 20 }}>
-          💰 Select Your Budget
+        <Text style={{
+          fontSize: 32,
+          fontFamily: 'poppins', // Use Poppins Medium
+          color: Colors.PRIMARY,
+          marginBottom: 20
+        }}>
+          Select Your Budget
         </Text>
       </View>
       <View style={{ marginVertical: 20 }}>
@@ -58,7 +63,7 @@ export default function SelectBudget() {
             <Text
               style={{
                 fontSize: 20,
-                fontWeight: '600',
+                fontFamily: 'poppinsmedium', // Use Poppins
                 color: selectedBudget === type ? Colors.WHITE : '#333',
               }}
             >
@@ -79,24 +84,24 @@ export default function SelectBudget() {
           style={{
             alignItems: 'center',
             justifyContent: 'center',
-            padding: 15,
+            padding: 12,
             backgroundColor: selectedBudget ? Colors.PRIMARY : '#ccc',
             borderRadius: 25,
             marginTop: 30,
             width: '60%',
           }}
           onPress={onBudgetSelectionContinue}
-          disabled={!selectedBudget} 
+          disabled={!selectedBudget}
         >
           <Text
             style={{
               color: Colors.WHITE,
               textAlign: 'center',
               fontSize: 18,
-              fontWeight: 'bold',
+              fontFamily: 'poppinsmedium', // Use Poppins
             }}
           >
-            Continue ➡️
+            Continue 
           </Text>
         </TouchableOpacity>
       </View>

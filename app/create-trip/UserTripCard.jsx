@@ -57,7 +57,9 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.2,
     shadowRadius: 5,
-    elevation: 3, // Sha
+    elevation: 3, 
+    borderColor:'#0000',// Sha
+
   },
   image: {
     width: '40%',
@@ -78,9 +80,9 @@ const styles = StyleSheet.create({
   },
   locationText: {
     fontSize: 15,
-    fontWeight: 'bold',
+    
     color: '#333',
- 
+   fontFamily:'poppins',
     // Dark grey text color
   },
   Text: {
