@@ -34,7 +34,7 @@ export default function ReviewTrip() {
       
       <View style={styles.infoBox}>
         <Text style={styles.label}>Dates</Text>
-        <Text style={styles.value}>{moment(tripData?.startdate).format('DD MMM')}and {moment(tripData?.enddate).format('DD MMM')}</Text>
+        <Text style={styles.value}>{moment(tripData?.startdate).format('DD MMM')} to {moment(tripData?.enddate).format('DD MMM')}</Text>
       </View>
       <View style={styles.infoBox}>
         <Text style={styles.label}>Budget Type</Text>

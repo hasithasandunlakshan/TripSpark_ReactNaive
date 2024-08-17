@@ -11,11 +11,11 @@ export default function Login() {
         source={require('@/assets/images/login.jpg')}
         style={{
           width: "100%",
-          height: 450,
+          height: "40%",
         }}
       />
       <View style={styles.container}>
-        <Text style={styles.title}>AI Travel Planner</Text>
+        <Text style={styles.title}>TripSpark</Text>
        
         <Text style={styles.title2}>Discover your next adventure effortlessly.Personalized itineraties at your fingertips.Travel Smarter with AI-Driven insights</Text>
         

@@ -79,6 +79,11 @@ catch(error){
         width:'100%',
         height:'60%'
       }}/>
+
+
+<Text 
+      
+      style={{fontSize:30 ,fontWeight:'bold'}}>Do not go back</Text>
     </View>
   )
 }

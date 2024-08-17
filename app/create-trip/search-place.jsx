@@ -2,6 +2,7 @@ import React, { useState,useEffect, useContext } from 'react';
 import { View, TextInput, Text, FlatList, TouchableOpacity } from 'react-native';
 import {CreateTripContext} from "../../context/createTripContext"
 import { useNavigation, useRouter } from 'expo-router'
+import { Colors } from '../../constants/Colors';
 
 export default function SearchPlace() {
     const [query, setQuery] = useState('');
@@ -40,9 +41,12 @@ const router=useRouter();
     })
     
     return (
-        <View style={{ padding: 20 }}>
+        <View style={{ padding: 20, backgroundColor: Colors.WHITE,height:'100%' }
+        
+        
+        }>
             <TextInput
-                placeholder="Search"
+                placeholder="Search your Places"
                 value={query}
                 onChangeText={(text) => searchPlaces(text)}
                 style={{

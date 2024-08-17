@@ -5,6 +5,7 @@ import {SelectTravelList} from '../../constants/options'
 import OptionCard from '../../components/CreateTrip/OptionCard'
 import { Colors } from '../../constants/Colors'
 import {CreateTripContext} from "../../context/createTripContext"
+import { ScrollView } from 'react-native'
 export default function createtraveller() {
   const router =useRouter();
   const navigation=useNavigation();
@@ -27,11 +28,11 @@ export default function createtraveller() {
     },[selectedTraveller])
   
   return (
-    <View
+    <ScrollView
     style={{
       padding:25,
       height:'100%',
-    
+
       backgroundColor:'#fff'
     }}
 
@@ -56,7 +57,7 @@ export default function createtraveller() {
         marginTop:5,
         marginBottom:20
         
-      }}>Choose your Traveles</Text>
+      }}>Choose your Travellers</Text>
 <FlatList
 
 data={SelectTravelList}
@@ -98,6 +99,6 @@ style={{marginVertical:5}}
           
         }}>Continue</Text>
         </TouchableOpacity >
-    </View>
+    </ScrollView>
   )
 }

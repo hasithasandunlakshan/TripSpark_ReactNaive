@@ -2,62 +2,67 @@ import { View, Text, TouchableOpacity } from 'react-native';
 import React, { useState, useEffect, useContext } from 'react';
 import { useNavigation, useRouter } from 'expo-router';
 import { Colors } from '../../constants/Colors';
-import {CreateTripContext} from "../../context/createTripContext"
+import { CreateTripContext } from "../../context/createTripContext";
+
 export default function SelectBudget() {
-  const router=useRouter();
+  const router = useRouter();
   const navigation = useNavigation();
   const [selectedBudget, setSelectedBudget] = useState(null);
-  const {tripData,setTripData}=useContext(CreateTripContext);
+  const { tripData, setTripData } = useContext(CreateTripContext);
+
   useEffect(() => {
     navigation.setOptions({
       headerShown: true,
-      headerTransparent: true,
-      headerTitle: 'Select Budget',
+      headerTitle: '🛩️ Select Budget',
     });
   }, []);
 
   const handleBudgetSelection = (budget) => {
-    console.log(budget)
     setSelectedBudget(budget);
   };
 
   const onBudgetSelectionContinue = () => {
-    console.log(`Selected Budget: ${selectedBudget}`);
-    setTripData({...tripData,budget:selectedBudget})
-    // Add navigation or any other functionality here
+    setTripData({ ...tripData, budget: selectedBudget });
+    router.push('/create-trip/review-trip');
   };
 
   return (
-    <View style={{ margin: 10 }}>
+    <View style={{ margin: 20 }}>
       <View>
-        <Text style={{ fontSize: 30, fontWeight: '800' }}>
-          Select Your Budget
+        <Text style={{ fontSize: 32, fontWeight: 'bold', color: Colors.PRIMARY, marginBottom: 20 }}>
+          💰 Select Your Budget
         </Text>
       </View>
       <View style={{ marginVertical: 20 }}>
-        {['Cheap', 'Moderate', 'Luxury'].map((budget) => (
+        {[
+          { type: 'Cheap', emoji: '💸' },
+          { type: 'Moderate', emoji: '💵' },
+          { type: 'Luxury', emoji: '💎' }
+        ].map(({ type, emoji }) => (
           <TouchableOpacity
-            key={budget}
+            key={type}
             style={{
-              padding: 15,
+              padding: 20,
               marginVertical: 10,
-              borderRadius: 10,
+              borderRadius: 15,
               backgroundColor:
-                selectedBudget === budget ? Colors.PRIMARY : '#f0f0f0',
+                selectedBudget === type ? Colors.PRIMARY : '#f9f9f9',
               borderWidth: 2,
-              borderColor: selectedBudget === budget ? Colors.SECONDARY : '#ccc',
+              borderColor: selectedBudget === type ? Colors.SECONDARY : '#ddd',
               alignItems: 'center',
+              flexDirection: 'row',
+              justifyContent: 'space-between',
             }}
-            onPress={() => handleBudgetSelection(budget)}
+            onPress={() => handleBudgetSelection(type)}
           >
             <Text
               style={{
-                fontSize: 18,
+                fontSize: 20,
                 fontWeight: '600',
-                color: selectedBudget === budget ? Colors.WHITE : '#000',
+                color: selectedBudget === type ? Colors.WHITE : '#333',
               }}
             >
-              {budget}
+              {emoji} {type}
             </Text>
           </TouchableOpacity>
         ))}
@@ -74,26 +79,24 @@ export default function SelectBudget() {
           style={{
             alignItems: 'center',
             justifyContent: 'center',
-            padding: 12,
-            backgroundColor: Colors.PRIMARY,
-            borderRadius: 99,
-            marginTop: 20,
-            width: '50%',
+            padding: 15,
+            backgroundColor: selectedBudget ? Colors.PRIMARY : '#ccc',
+            borderRadius: 25,
+            marginTop: 30,
+            width: '60%',
           }}
-          onPress={()=>{onBudgetSelectionContinue();
-            router.push('/create-trip/review-trip');
-          }}
-          disabled={!selectedBudget} // Disable button if no budget is selected
+          onPress={onBudgetSelectionContinue}
+          disabled={!selectedBudget} 
         >
           <Text
             style={{
               color: Colors.WHITE,
               textAlign: 'center',
-              fontSize: 15,
-              fontWeight: '800',
+              fontSize: 18,
+              fontWeight: 'bold',
             }}
           >
-            Continue
+            Continue ➡️
           </Text>
         </TouchableOpacity>
       </View>

@@ -8,25 +8,23 @@ import { useRouter } from 'expo-router';
 
 export default function UserTripList({ userTrip }) {
     const latestTrip = JSON.parse(userTrip[0].tripData);
-
-console.log(latestTrip);
+//     console.log("hiiiiiiiiiiii");
+// console.log(latestTrip);
 const router=useRouter();
     return (
         <ScrollView style={styles.scrollContainer}>
             <View style={styles.container}>
-                <Image
-                    source={require('../../assets/images/Mytrip.jpg')}
-                    style={styles.image}
-                />
+               
                 <View style={styles.tripCard}>
+                  
                 <Text style={styles.locationText}>{userTrip[0].tripPlan?.["Main Location Address"]}</Text>
                
 
 
 
                     <View style={{display:'flex' ,flexDirection:'row',justifyContent:'space-between'}}>
-                    <Text style={styles.locationText}>{latestTrip.travellerType?.title}{latestTrip.travellerType?.icon}</Text>
-                    <Text style={styles.locationText}>{moment(latestTrip.startdate).format('DD MMMM')}</Text>
+                    <Text style={styles.normalText}>{latestTrip.travellerType?.title}{latestTrip.travellerType?.icon}</Text>
+                    <Text style={styles.normalText}>{moment(latestTrip.startdate).format('DD MMMM')}</Text>
                     </View>
                   
                 </View>
@@ -40,7 +38,13 @@ const router=useRouter();
             </View>
             <View>
             {userTrip.map((location, index) => (
-           <UserTripCard userTrip={location}/>
+              <TouchableOpacity  onPress={() => router.push({pathname:'/trip-detail',params:{trip:JSON.stringify(location)}})} >
+<UserTripCard userTrip={location} key={index}  />
+
+              </TouchableOpacity>
+ 
+             
+          
         ))}
 
               
@@ -81,6 +85,11 @@ const styles = StyleSheet.create({
   locationText: {
     fontSize: 18,
     fontWeight: 'bold',
+    color: '#333', // Dark grey text color
+  },
+  normalText: {
+    fontSize: 10,
+    fontWeight: '500',
     color: '#333', // Dark grey text color
   },
   button: {

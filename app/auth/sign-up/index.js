@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigation, useRouter } from 'expo-router';
 import { Colors } from '../../../constants/Colors';
 import Ionicons from '@expo/vector-icons/Ionicons';
-import {createUserWithEmailAndPassword} from 'firebase/auth'
+import {createUserWithEmailAndPassword,updateProfile} from 'firebase/auth'
 import { auth } from '../../../configs/fireBaseConfig'; 
 export default function SignIn() {
     // Initializing navigation and router hooks
@@ -31,6 +31,14 @@ const [fullname,setFullname]=useState();
     // Signed up 
     const user = userCredential.user;
     console.log(user);
+    updateProfile(user, {
+        displayName: fullname
+    }).then(() => {
+        console.log("User profile updated with display name:", fullname);
+        // You can navigate to another screen or perform additional actions here
+    }).catch((error) => {
+        console.error("Error updating profile:", error.message);
+    });
     // ...
   })
   .catch((error) => {

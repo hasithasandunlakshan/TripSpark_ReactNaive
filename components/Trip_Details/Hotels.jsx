@@ -9,25 +9,29 @@ export default function Hotels({ hotels }) {
         style={styles.image}
         resizeMode="cover"
       />
-      <Text style={styles.name}>{hotels?.HotelName}</Text>
+      <Text style={styles.name}>{hotels?.['Hotel name']}</Text>
      
       <Text style={styles.address}>{hotels?.Address}</Text>
-      <Text style={styles.price}>{hotels?.PricePerNight}</Text>
+      <Text style={styles.price}>{hotels?.['Price per night']}💲</Text>
       <Text style={styles.rating}>{hotels?.Rating} ⭐</Text>
     </View>
   );
 }
 const styles = StyleSheet.create({
     container: {
+    width:150,
       padding: 5,
       borderWidth: 1,
       borderColor: '#ccc',
       borderRadius: 10,
-      marginBottom: 10,
+      marginBottom: 30,
       backgroundColor: '#fff',
+      margin:5,
+      minHeight:250
+      
     },
     image: {
-      width: '50%',
+      width: '100%',
       height: 100,
       borderRadius: 10,
       marginBottom: 1,
@@ -40,13 +44,16 @@ const styles = StyleSheet.create({
  
     address: {
       fontSize: 12,
-      color: '#777',
-      marginBottom: 0,
+      color: '#444',
+    fontWeight:'400'
+   
     },
     price: {
-      fontSize: 16,
+
+      fontSize: 12,
       color: '#333',
-      marginBottom: 5,
+      fontWeight:'400'
+  
     },
     rating: {
         fontWeight: 'bold',

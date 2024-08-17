@@ -16,7 +16,7 @@ console.log(latestTrip);
                     style={styles.image}
                 />
                 <View style={styles.tripCard}>
-                <Text style={styles.locationText}>{userTrip.tripPlan?.["Main Location Address"]}</Text>
+                <Text style={styles.locationText}>{userTrip.tripPlan?.["Main Location Address"]} </Text>
                
 
 

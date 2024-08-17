@@ -19,7 +19,7 @@ const router=useRouter();
   const GetMyTrip = async () => {
     setLoading(true);
     setUserTrips([]);
-    console.log("bdu gnn puluwn");
+  
     const q = query(collection(db, "UserTrips"), where('userEmail', '==', user?.email));
     const querySnapshot = await getDocs(q);
 
@@ -27,7 +27,9 @@ const router=useRouter();
 
     querySnapshot.forEach((doc) => {
       // doc.data() is never undefined for query doc snapshots
-      console.log(doc.id, " => ", doc.data());});
+      // console.log(doc.id, " => ", doc.data());
+    
+    });
 
     setUserTrips(trips);
     setLoading(false);
@@ -47,9 +49,9 @@ const router=useRouter();
       padding: 25,
       paddingTop: 55,
       backgroundColor: Colors.WHITE,
-      height: "auto",
+      height: "100%",
     }}>
-      {loading && <ActivityIndicator size={'large'} color={Colors.PRIMARY} />}
+    
 
       <View style={{
         display: 'flex',
@@ -66,13 +68,14 @@ const router=useRouter();
         </TouchableOpacity>
         
       </View>
+      {loading && <ActivityIndicator size={'large'} color={Colors.PRIMARY} />}
 <ScrollView showsVerticalScrollIndicator={false}>
 {userTrips.length === 0 ?
         <MyTripCard /> :
         <UserTripList userTrip={userTrips} />
       }
 </ScrollView>
-    
+
     </View>
   );
 };

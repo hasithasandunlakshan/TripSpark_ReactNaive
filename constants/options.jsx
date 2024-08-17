@@ -59,10 +59,8 @@ export const AI_PROMPT = `Generate a travel plan for Location: {location}, spann
      - Geo coordinates
      - Ticket pricing
      - Estimated travel time to each location
+     - Day
 
-5. Day-by-day itinerary:
-   - Each day's plan with:
-     - Best time to visit
-     - Activities and places to visit
+
 
 Provide the output in JSON format.`
